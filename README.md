@@ -1,36 +1,211 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Metric Alerting Platform
+Project Overview
 
-## Getting Started
+The Metric Alerting Platform is a full-stack application designed to simulate a simplified real-time monitoring and alerting system. It allows users to define alert rules, submit metric data, automatically evaluate thresholds, generate alert events, and review alert history through a dashboard interface.
 
-First, run the development server:
+This project was developed as part of an assessment to demonstrate backend, frontend, and database integration skills.
 
-```bash
+Problem Statement
+
+Modern systems continuously generate operational metrics such as CPU usage, memory usage, disk utilization, API latency, and error rates. Monitoring these metrics and triggering alerts when abnormal conditions occur is a critical part of system reliability.
+
+This platform implements a simplified alerting mechanism that:
+
+Stores alert configurations
+
+Accepts metric data
+
+Evaluates alert rules
+
+Generates alert events
+
+Displays alert history
+
+Features Implemented
+Alert Rule Management
+
+Create alert rules with:
+
+Metric name
+
+Comparator (GT / LT)
+
+Threshold value
+
+Custom alert message
+
+Persist rules in PostgreSQL
+
+Metric Ingestion
+
+Submit metric values through the user interface
+
+Backend API validates incoming data
+
+Alert Evaluation Engine
+
+Retrieves matching alert rules based on metric name
+
+Compares metric value against threshold
+
+Supports:
+
+GT (Greater Than)
+
+LT (Less Than)
+
+Alert Event Generation
+
+Automatically generates alert events when conditions are met
+
+Stores event details:
+
+Alert ID
+
+Metric name
+
+Metric value
+
+Message
+
+Timestamp
+
+Alert History Dashboard
+
+Displays recent alert events
+
+Updates dynamically using polling
+
+Built with Next.js and Tailwind CSS
+
+Notification System
+
+Displays toast notifications using Sonner
+
+Replaces default browser alerts for improved user experience
+
+Technology Stack
+Frontend
+
+Next.js
+
+Tailwind CSS
+
+Sonner (toast notifications)
+
+Backend
+
+Next.js API Routes
+
+PostgreSQL
+
+Database
+
+PostgreSQL
+
+Tables:
+
+alerts
+
+alert_events
+
+Prerequisites
+
+Ensure the following are installed:
+
+Node.js
+
+PostgreSQL (running locally)
+
+Database Setup
+
+Connect to PostgreSQL.
+
+Create the database:
+
+CREATE DATABASE metric_db;
+
+Run the initialization script:
+
+psql -U postgres -d metric_db -f backend/scripts/init-db.sql
+Backend Setup
+
+Navigate to the backend directory:
+
+cd backend
+
+Install dependencies:
+
+npm install
+
+Verify the database connection string in lib/db.ts.
+
+Default configuration:
+
+postgres://postgres:postgres@localhost:5432/metric_db
+
+Start the backend server:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Backend runs on:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+http://localhost:3000
+Frontend Setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Navigate to the frontend directory:
 
-## Learn More
+cd frontend
 
-To learn more about Next.js, take a look at the following resources:
+Install dependencies:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Start the frontend server:
 
-## Deploy on Vercel
+npm run dev -- -p 3001
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Frontend runs on:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+http://localhost:3001
+Troubleshooting
+Database Connection Issues
+
+If you encounter a 500 Internal Server Error or connection failure:
+
+Check PostgreSQL status
+
+Windows: Use Services Manager
+
+Mac/Linux:
+
+sudo service postgresql status
+
+Verify database exists
+
+psql -U postgres -c "CREATE DATABASE metric_db;"
+
+Verify credentials
+
+Ensure the connection string in:
+
+backend/lib/db.ts
+
+matches your PostgreSQL configuration.
+
+Re-run initialization script
+
+psql -U postgres -d metric_db -f backend/scripts/init-db.sql
+Assessment Objectives Demonstrated
+
+Full-stack application design
+
+REST API development
+
+Database schema design
+
+Rule-based evaluation logic
+
+Real-time UI updates
+
+Error handling and validation
