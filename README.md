@@ -1,15 +1,15 @@
 **Metric Alerting Platform**
 Project Overview
 
-The Metric Alerting Platform is a full-stack application designed to simulate a simplified real-time monitoring and alerting system. It allows users to define alert rules, submit metric data, automatically evaluate thresholds, generate alert events, and review alert history through a dashboard interface.
+The Metric Alerting Platform is a full-stack application developed using Next.js and PostgreSQL. The platform simulates a simplified real-time monitoring and alerting system that allows users to configure alert rules, submit metric data, evaluate thresholds, generate alert events, and review alert history through a dashboard interface.
 
-This project was developed as part of an assessment to demonstrate backend, frontend, and database integration skills.
+This project was created as part of an assessment to demonstrate frontend, backend, and database integration.
 
 **Problem Statement**
 
-Modern systems continuously generate operational metrics such as CPU usage, memory usage, disk utilization, API latency, and error rates. Monitoring these metrics and triggering alerts when abnormal conditions occur is a critical part of system reliability.
+Modern systems continuously generate operational metrics such as CPU usage, memory usage, API latency, and error rates. Monitoring these metrics and triggering alerts when predefined conditions are violated is essential for maintaining system reliability.
 
-This platform implements a simplified alerting mechanism that:
+This platform implements a simplified alerting workflow that:
 
 Stores alert configurations
 
@@ -21,7 +21,7 @@ Generates alert events
 
 Displays alert history
 
-**Features Implemented**
+Features
 Alert Rule Management
 
 Create alert rules with:
@@ -34,19 +34,17 @@ Threshold value
 
 Custom alert message
 
-Persist rules in PostgreSQL
-
 Metric Ingestion
 
 Submit metric values through the user interface
 
-Backend API validates incoming data
+Backend API validates incoming metric data
 
-Alert Evaluation Engine
+Alert Evaluation
 
-Retrieves matching alert rules based on metric name
+Retrieves alert rules based on metric name
 
-Compares metric value against threshold
+Compares metric values against defined thresholds
 
 **Supports:**
 
@@ -56,9 +54,9 @@ LT (Less Than)
 
 Alert Event Generation
 
-Automatically generates alert events when conditions are met
+Automatically creates alert events when conditions are met
 
-Stores event details:
+Stores:
 
 Alert ID
 
@@ -70,21 +68,22 @@ Message
 
 Timestamp
 
-Alert History Dashboard
+Dashboard
 
 Displays recent alert events
 
-Updates dynamically using polling
+Dynamic updates using polling
 
-Built with Next.js and Tailwind CSS
+Clean UI built with Tailwind CSS
 
-Notification System
+Notifications
 
-Displays toast notifications using Sonner
+Toast notifications implemented using Sonner
 
-Replaces default browser alerts for improved user experience
+Non-blocking user feedback
 
 Technology Stack
+
 Frontend
 
 Next.js
@@ -103,15 +102,16 @@ Database
 
 PostgreSQL
 
-Tables:
+Database Schema
+
+Tables used:
 
 alerts
 
 alert_events
 
+Setup Instructions
 Prerequisites
-
-Ensure the following are installed:
 
 Node.js
 
@@ -119,93 +119,49 @@ PostgreSQL (running locally)
 
 Database Setup
 
-Connect to PostgreSQL.
-
 Create the database:
 
 CREATE DATABASE metric_db;
 
-Run the initialization script:
+Run initialization script:
 
 psql -U postgres -d metric_db -f backend/scripts/init-db.sql
 Backend Setup
-
-Navigate to the backend directory:
-
 cd backend
-
-Install dependencies:
-
 npm install
-
-Verify the database connection string in lib/db.ts.
-
-Default configuration:
-
-postgres://postgres:postgres@localhost:5432/metric_db
-
-Start the backend server:
-
 npm run dev
 
 Backend runs on:
 
 http://localhost:3000
 Frontend Setup
-
-Navigate to the frontend directory:
-
 cd frontend
-
-Install dependencies:
-
 npm install
-
-Start the frontend server:
-
 npm run dev -- -p 3001
 
 Frontend runs on:
 
 http://localhost:3001
+Application Preview
+Dashboard
+
+Alert Management
+
+Additional View
+
 Troubleshooting
 Database Connection Issues
 
-If you encounter a 500 Internal Server Error or connection failure:
+If you encounter a 500 Internal Server Error:
 
-Check PostgreSQL status
+Verify PostgreSQL is running
 
-Windows: Use Services Manager
+Confirm database metric_db exists
 
-Mac/Linux:
+Check connection string in backend/lib/db.ts
 
-sudo service postgresql status
+Default:
 
-Verify database exists
+postgres://postgres:postgres@localhost:5432/metric_db
 
-psql -U postgres -c "CREATE DATABASE metric_db;"
-
-Verify credentials
-
-Ensure the connection string in:
-
-backend/lib/db.ts
-
-matches your PostgreSQL configuration.
-
-Re-run initialization script
-
-psql -U postgres -d metric_db -f backend/scripts/init-db.sql
-Assessment Objectives Demonstrated
-
-Full-stack application design
-
-REST API development
-
-Database schema design
-
-Rule-based evaluation logic
-
-Real-time UI updates
-
-Error handling and validation
+Re-run initialization script if needed
