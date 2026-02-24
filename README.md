@@ -1,11 +1,11 @@
-Metric Alerting Platform
+**Metric Alerting Platform**
 Project Overview
 
 The Metric Alerting Platform is a full-stack application designed to simulate a simplified real-time monitoring and alerting system. It allows users to define alert rules, submit metric data, automatically evaluate thresholds, generate alert events, and review alert history through a dashboard interface.
 
 This project was developed as part of an assessment to demonstrate backend, frontend, and database integration skills.
 
-Problem Statement
+**Problem Statement**
 
 Modern systems continuously generate operational metrics such as CPU usage, memory usage, disk utilization, API latency, and error rates. Monitoring these metrics and triggering alerts when abnormal conditions occur is a critical part of system reliability.
 
@@ -21,7 +21,7 @@ Generates alert events
 
 Displays alert history
 
-Features Implemented
+**Features Implemented**
 Alert Rule Management
 
 Create alert rules with:
@@ -48,7 +48,7 @@ Retrieves matching alert rules based on metric name
 
 Compares metric value against threshold
 
-Supports:
+**Supports:**
 
 GT (Greater Than)
 
