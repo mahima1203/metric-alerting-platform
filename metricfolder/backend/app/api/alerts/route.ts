@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import eventEmitter, { EVENTS } from '@/lib/events';
 
 // GET /api/alerts - List all alerts
 export async function GET() {
@@ -31,6 +32,10 @@ export async function POST(request: Request) {
         );
 
         console.log('Query successful, created alert:', result.rows[0]);
+
+        // Notify all clients via SSE
+        eventEmitter.emit(EVENTS.UPDATE);
+
         return NextResponse.json(result.rows[0], { status: 201 });
     } catch (error) {
         console.error('CRITICAL ERROR creating alert:', error);

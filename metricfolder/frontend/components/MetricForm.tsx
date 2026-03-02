@@ -24,13 +24,17 @@ export default function MetricForm({ onMetricSent }: { onMetricSent: () => void 
             });
 
             if (response.ok) {
+                const data = await response.json();
+
+                // Clear both fields on success
+                setMetricName('');
                 setMetricValue('');
                 onMetricSent();
-                const data = await response.json();
+
                 if (data.triggered_count > 0) {
-                    showToast(`Alert Triggered! (${data.triggered_count})`, 'info');
+                    showToast(`Alert triggered for ${metricName}! (${data.triggered_count} events created)`, 'info');
                 } else {
-                    showToast('Metric processed successfully', 'success');
+                    showToast(`Metric "${metricName}" processed successfully`, 'success');
                 }
             } else {
                 const data = await response.json();

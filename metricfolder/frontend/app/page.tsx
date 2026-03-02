@@ -40,9 +40,29 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
+    // Initial fetch
     fetchData();
-    const interval = setInterval(fetchData, 5000);
-    return () => clearInterval(interval);
+
+    // Setup SSE for real-time updates
+    const eventSource = new EventSource('http://127.0.0.1:3000/api/events/stream');
+
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.type === 'update') {
+        console.log('SSE: Update received, refreshing data...');
+        fetchData();
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      console.error('SSE Error:', error);
+      eventSource.close();
+      // Optionally fallback to interval if SSE fails
+    };
+
+    return () => {
+      eventSource.close();
+    };
   }, []);
 
   return (

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import eventEmitter, { EVENTS } from '@/lib/events';
 
 // DELETE /api/alerts/[id] - Delete an alert
 export async function DELETE(
@@ -14,6 +15,9 @@ export async function DELETE(
         if (result.rowCount === 0) {
             return NextResponse.json({ error: 'Alert not found' }, { status: 404 });
         }
+
+        // Notify all clients via SSE
+        eventEmitter.emit(EVENTS.UPDATE);
 
         return NextResponse.json({ message: 'Alert deleted successfully' });
     } catch (error) {

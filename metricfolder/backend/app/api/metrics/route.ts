@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/db';
+import eventEmitter, { EVENTS } from '@/lib/events';
 
 // POST /api/metrics - Receive a metric and evaluate alerts
 export async function POST(request: Request) {
@@ -47,6 +48,9 @@ export async function POST(request: Request) {
                 triggeredEvents.push(eventResult.rows[0]);
             }
         }
+
+        // Notify all clients via SSE
+        eventEmitter.emit(EVENTS.UPDATE);
 
         return NextResponse.json({
             message: 'Metric processed',
